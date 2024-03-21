@@ -11,6 +11,7 @@ CREATE TABLE `alkemy`.`usuarios` (
   PRIMARY KEY (`idusuarios`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 
+
 CREATE TABLE `alkemy`.`monedas` (
   `idmonedas` INT NOT NULL AUTO_INCREMENT,
   `currency_name` VARCHAR(45) NOT NULL,
@@ -24,7 +25,16 @@ CREATE TABLE `alkemy`.`transaccion` (
   `amount` INT NULL,
   `transaction_date` DATE NULL,
   `currency_id` INT NULL,
-  PRIMARY KEY (`idtransaccion`));
+  PRIMARY KEY (`idtransaccion`),
+    CONSTRAINT `fk_sender_user_id`
+    FOREIGN KEY (`sender_user_id`)
+    REFERENCES `alkemy`.`usuarios` (`idusuarios`),
+  CONSTRAINT `fk_receiver_user_id`
+    FOREIGN KEY (`receiver_user_id`)
+    REFERENCES `alkemy`.`usuarios` (`idusuarios`),
+  CONSTRAINT `fk_currency_id`
+    FOREIGN KEY (`currency_id`)
+    REFERENCES `alkemy`.`monedas` (`idmonedas`));
   
 -- Datos 
 
